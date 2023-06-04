@@ -1,0 +1,25 @@
+---
+- name: Install Rust
+  shell: |
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    export PATH="$HOME/.cargo/bin:$PATH"
+  environment:
+    HOME: "/home/{{ ansible_user }}"
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: rust
+
+- name: Install Rust tools
+  shell: |
+    source $HOME/.cargo/env
+    cargo install xh
+    cargo install dust
+    cargo install --locked bat
+    cargo install git-delta
+    cargo install exa
+    cargo install alacritty
+  environment:
+    HOME: "/home/{{ ansible_user }}"
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: rust
