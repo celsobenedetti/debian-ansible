@@ -6,6 +6,7 @@
 
 ```bash
 sudo apt update && sudo apt upgrade -y && sudo apt install -y curl
+ apt update &&  apt upgrade -y &&  apt install -y curl sudo
 ```
 
 2. Install pip
@@ -16,14 +17,14 @@ python3 -m pip -V # check if pip is installed
 
 # if not installed:
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
-    && python3 get-pip.py --user \
+    && python3 get-pip.py  \
     && rm get-pip.py
 ```
 
 3. Install Ansible
 
 ```bash
-python3 -m pip install --user ansible
+pip install ansible
 ```
 
 ## Usage
