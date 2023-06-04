@@ -1,0 +1,46 @@
+---
+- name: Clone neovim repo
+  git:
+    repo: https://github.com/neovim/neovim
+    dest: ~/local/neovim
+    version: master
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: neovim
+
+- name: Install neovim dependencies
+  apt:
+    name:
+      - cmake
+      - ninja-build
+      - gettext
+      - unzip
+    state: present
+  become: true
+  tags: neovim
+
+- name: Build & install neovim
+  shell: |
+    cd ~/local/neovim
+    make CMAKE_BUILD_TYPE=RelWithDebInfo
+    git checkout stable
+    sudo make install
+
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: neovim
+
+- name: Clone neovim config files
+  git:
+    repo: git@github.com:celsobenedetti/nvim.git
+    dest: ~/.config/nvim
+    version: main
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: neovim
+
+- name: Install neovim plugins
+  shell: nvim --headless "+Lazy! sync" +qa
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: neovim
