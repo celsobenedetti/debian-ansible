@@ -1,0 +1,48 @@
+---
+- name: Remove existing Go install
+  command: rm -rf /usr/local/go
+  become: true
+  tags: go
+
+- name: Get Go
+  get_url:
+    url: https://go.dev/dl/{{ go_version }}
+    dest: /tmp/{{ go_version }}
+    mode: "0644"
+  tags: go
+
+- name: Install Go
+  unarchive:
+    src: /tmp/{{ go_version }}
+    dest: /usr/local
+    remote_src: yes
+    creates: /usr/local/go
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: go
+
+- name: Install Go tools
+  shell: |
+    export PATH="/usr/local/go/bin:$PATH"
+    go install github.com/jesseduffield/lazydocker@latest
+    go install github.com/jesseduffield/lazygit@latest
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: go
+
+- name: Clone zk
+  git:
+    repo: https://github.com/mickael-menu/zk.git
+    dest: ~/local/zk
+    version: main
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: go
+
+- name: Make zk
+  command: make
+  args:
+    chdir: ~/local/zk
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: go
