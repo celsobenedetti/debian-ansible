@@ -1,0 +1,32 @@
+---
+- name: Clone dotfiles
+  git:
+    repo: git@github.com:celsobenedetti/dotfiles.git
+    dest: ~/.dotfiles/
+    version: main
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: dotfiles
+
+- name: Install GNU Stow
+  apt:
+    name: stow
+    state: present
+  become: true
+  tags: dotfiles
+
+- name: Unlink existing dotfiles
+  command: stow -v -d ~/.dotfiles -t ~ -R .
+  args:
+    chdir: ~/.dotfiles
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: dotfiles
+
+- name: Link dotfiles
+  command: stow tmux zsh git vscode alacritty zk
+  args:
+    chdir: ~/.dotfiles
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: dotfiles
