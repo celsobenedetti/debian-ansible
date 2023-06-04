@@ -1,11 +1,37 @@
 ---
-- name: Provision ubuntu
+- name: Provision Ubuntu
   hosts: localhost
   gather_facts: false
 
-  vars:
-    ansible_user: "{{ lookup('env', 'USER') }}"
-
   tasks:
-    - import_tasks: apt.yml
-    - import_tasks: ssh.yml
+    - name: Include apt tasks
+      include_tasks: playbooks/apt.yml
+      tags: apt
+
+    - name: Include ssh tasks
+      include_tasks: playbooks/ssh.yml
+      tags: ssh
+
+    - name: Include tools tasks
+      include_tasks: playbooks/tools.yml
+      tags: tools
+
+    - name: Include dotfiles tasks
+      include_tasks: playbooks/dotfiles.yml
+      tags: dotfiles
+
+    - name: Include neovim tasks
+      include_tasks: playbooks/neovim.yml
+      tags: neovim
+
+    - name: Include go tasks
+      include_tasks: playbooks/go.yml
+      tags: go
+
+    - name: Include rust tasks
+      include_tasks: playbooks/rust.yml
+      tags: rust
+
+    - name: Include docker tasks
+      include_tasks: playbooks/docker.yml
+      tags: docker
