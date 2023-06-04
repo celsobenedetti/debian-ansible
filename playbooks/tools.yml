@@ -1,0 +1,49 @@
+---
+- name: Install workflow tools
+  apt:
+    name:
+      - zsh
+      - tmux
+      - ripgrep
+      - fd-find
+      - jq
+      - zoxide
+      - direnv
+
+    state: present
+  tags: tools
+
+- name: Install Oh My Zsh
+  shell: |
+    wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    sh install.sh --unattended
+    rm install.sh
+
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: tools
+
+- name: Install fzf
+  shell: |
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: tools
+
+- name: Get GitHub CLI sources
+  shell: |
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  become: true
+  tags: tools
+
+- name: Install GitHub CLI
+  apt:
+    name: gh
+    state: present
+    update_cache: yes
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: tools
