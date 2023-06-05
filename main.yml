@@ -25,6 +25,10 @@
       include_tasks: playbooks/tools.yml
       tags: tools
 
+    - name: Include zsh tasks
+      include_tasks: playbooks/zsh.yml
+      tags: zsh
+
     - name: Include dotfiles tasks
       include_tasks: playbooks/dotfiles.yml
       tags: dotfiles
