@@ -4,22 +4,31 @@
     name:
       - openssh-client
     state: present
-  tags: ssh-key
+  tags: ssh
+
+- name: Create ~/.ssh for user
+  become: true
+  become_user: "{{ ansible_user }}"
+  file:
+    path: "/home/{{ ansible_user }}/.ssh"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0700"
+  changed_when: false
+  tags: ssh
 
 - name: Check if SSH key exists
   stat:
-    path: ~/.ssh/id_rsa
+    path: /home/{{ ansible_user }}/.ssh/id_rsa
   register: ssh_key_stat
-  become: yes
-  become_user: "{{ ansible_user }}"
-  tags: ssh-key
+  become: true
+  tags: ssh
 
 - name: Generate SSH key pair
-  shell: |
-    ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -q -N ""
-  become: yes
   become_user: "{{ ansible_user }}"
-  tags: ssh-key
+  command: ssh-keygen -t rsa -b 4096 -f /home/{{ ansible_user }}/.ssh/id_rsa -q -N ""
+  tags: ssh
   when: ssh_key_stat.stat.exists == False
 
 - name: Add public key to GitHub
@@ -32,13 +41,14 @@
       Authorization: "Bearer {{ lookup('env', 'GH_TK') }}"
       X-GitHub-Api-Version: 2022-11-28
 
-    body: '{"title":"ansible-provisined-ubuntu","key":"{{ lookup(''file'', ''~/.ssh/id_rsa.pub'') }}"'
+    body: '{"title":"ansible-provisined-ubuntu","key":"{{ lookup(''file'', ''/home/{{ ansible_user }}/.ssh/id_rsa.pub'') }}"'
     status_code: 201
-  become: yes
+  become: true
   become_user: "{{ ansible_user }}"
   register: github_response
-  tags: ssh-key
+  tags: ssh
 
 - name: Add github.com to known_hosts
-  shell: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-  tags: ssh-key
+  shell: ssh-keyscan -H github.com >> /home/{{ ansible_user }}/.ssh/known_hosts
+  tags: ssh
+  become: true

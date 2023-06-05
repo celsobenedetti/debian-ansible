@@ -6,7 +6,6 @@
 
 ```bash
 sudo apt update && sudo apt upgrade -y && sudo apt install -y curl
- apt update &&  apt upgrade -y &&  apt install -y curl sudo
 ```
 
 2. Install pip
@@ -51,3 +50,7 @@ ansible-playbook main.yml -K # -K asks for sudo password
 - Create new SSH key pair
 - Add public key to GitHub account
 - Add github.com as known host
+
+```
+
+```

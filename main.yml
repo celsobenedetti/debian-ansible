@@ -3,6 +3,15 @@
   hosts: localhost
   gather_facts: false
 
+  vars_prompt:
+    - name: ansible_user
+      prompt: Run Ansible as user
+      private: no
+
+    - name: ansible_become_password
+      prompt: Password for user
+      private: yes
+
   tasks:
     - name: Include apt tasks
       include_tasks: playbooks/apt.yml
@@ -28,10 +37,10 @@
       include_tasks: playbooks/go.yml
       tags: go
 
-    - name: Include rust tasks
-      include_tasks: playbooks/rust.yml
-      tags: rust
-
     - name: Include docker tasks
       include_tasks: playbooks/docker.yml
       tags: docker
+
+    - name: Include rust tasks
+      include_tasks: playbooks/rust.yml
+      tags: rust

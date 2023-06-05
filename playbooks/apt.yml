@@ -3,52 +3,46 @@
   apt:
     update_cache: yes
     upgrade: yes
-  become: yes
-  tags: apt
-
-- name: Install git and curl
-  apt:
-    name:
-      - git
-      - curl
-    state: present
+  become: true
   tags: apt
 
 - name: Install core packages
   apt:
     name:
+      - git
+      - curl
       - cmake
       - pkg-config
       - libfreetype6-dev
       - libfontconfig1-dev
       - libxcb-xfixes0-dev
       - libxkbcommon-dev
-      - stow
+  become: true
+  tags: apt
 
 - name: Install workflow tools
   apt:
     name:
+      - stow
       - zsh
       - tmux
       - ripgrep
       - fd-find
-      - bat
       - jq
       - zoxide
-
     state: present
   tags: apt
 
 - name: Install fzf
   shell: |
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
+    git clone --depth 1 https://github.com/junegunn/fzf.git /home/{{ ansible_user }}/.fzf
+    yes | bash /home/{{ ansible_user}}/.fzf/install
   become: true
   become_user: "{{ ansible_user }}"
+  register: fzf_output
   tags: apt
 
-- name: Setup bat
-  command: ln -s /usr/bin/batcat ~/.local/bin/bat
-  become: true
-  become_user: "{{ ansible_user }}"
+- name: Print fzf output
+  debug:
+    var: fzf_output.stdout_lines
   tags: apt
