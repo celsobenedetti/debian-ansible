@@ -1,0 +1,39 @@
+---
+- name: Check if donts fonts exists and has JetBrainsMono
+  shell: ls /usr/share/fonts/jetbrains | grep JetBrainsMono
+  register: fonts_check
+  changed_when: false
+  ignore_errors: true
+  tags: fonts
+
+- name: Create fonts directory
+  file:
+    path: /usr/share/fonts/jetbrains
+    state: directory
+  become: true
+  tags: fonts
+  when: fonts_check.stdout == "" or fonts_check.rc != 0
+
+- name: Register pwd
+  shell: pwd
+  register: pwd
+  changed_when: false
+  tags: fonts
+
+- name: Copy fonts to system
+  copy:
+    src: "{{ item }}"
+    dest: /usr/share/fonts/jetbrains
+    mode: 0644
+  with_fileglob:
+    - "{{ pwd.stdout }}/fonts/*"
+  become: true
+  when: fonts_check.stdout == "" or fonts_check.rc != 0
+  tags: fonts
+
+- name: Update font cache
+  shell: fc-cache -f -v
+  ignore_errors: true
+  become: true
+  when: fonts_check.stdout == "" or fonts_check.rc != 0
+  tags: fonts

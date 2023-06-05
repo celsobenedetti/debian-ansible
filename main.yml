@@ -45,6 +45,10 @@
       include_tasks: playbooks/docker.yml
       tags: docker
 
+    - name: Include fonts tasks
+      include_tasks: playbooks/fonts.yml
+      tags: fonts
+
     - name: Include rust tasks
       include_tasks: playbooks/rust.yml
       tags: rust
