@@ -1,4 +1,12 @@
 ---
+- name: Check if rust is already installed
+  shell: cargo --version
+  args:
+    warn: false
+  register: cargo_check
+  changed_when: false
+  tags: rust
+
 - name: Install Rust
   shell: |
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -8,6 +16,7 @@
   become: true
   become_user: "{{ ansible_user }}"
   tags: rust
+  when: cargo_check.rc != 0
 
 - name: Install Rust tools
   shell: |

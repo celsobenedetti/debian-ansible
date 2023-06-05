@@ -1,12 +1,18 @@
 ---
+- name: Check if nvim is already installed
+  shell: nvim --version
+  register: nvim_check
+  changed_when: false
+  ignore_errors: true
+  tags: neovim
+
 - name: Clone neovim repo
   git:
     repo: https://github.com/neovim/neovim
-    dest: ~/local/neovim
-    version: master
-  become: true
-  become_user: "{{ ansible_user }}"
+    dest: /home/{{ ansible_user }}/local/neovim
+    version: stable
   tags: neovim
+  when: nvim_check.rc != 0
 
 - name: Install neovim dependencies
   apt:
@@ -18,29 +24,24 @@
     state: present
   become: true
   tags: neovim
+  when: nvim_check.rc != 0
 
 - name: Build & install neovim
   shell: |
-    cd ~/local/neovim
+    cd /home/{{ ansible_user }}/local/neovim
     make CMAKE_BUILD_TYPE=RelWithDebInfo
     git checkout stable
     sudo make install
-
-  become: true
-  become_user: "{{ ansible_user }}"
   tags: neovim
+  when: nvim_check.rc != 0
 
 - name: Clone neovim config files
   git:
     repo: git@github.com:celsobenedetti/nvim.git
-    dest: ~/.config/nvim
+    dest: /home/{{ ansible_user }}/.config/nvim
     version: main
-  become: true
-  become_user: "{{ ansible_user }}"
   tags: neovim
 
 - name: Install neovim plugins
   shell: nvim --headless "+Lazy! sync" +qa
-  become: true
-  become_user: "{{ ansible_user }}"
   tags: neovim
