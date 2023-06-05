@@ -33,6 +33,12 @@
     depth: 1
   tags: zsh
 
+- name: Install zsh-wakatime
+  git:
+    repo: https://github.com/wbingli/zsh-wakatime.git
+    dest: /home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-wakatime
+  tags: zsh
+
 - name: Remove zshrc
   file:
     path: /home/{{ ansible_user }}/.zshrc
