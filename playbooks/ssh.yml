@@ -4,11 +4,10 @@
     name:
       - openssh-client
     state: present
+  become: true
   tags: ssh
 
 - name: Create ~/.ssh for user
-  become: true
-  become_user: "{{ ansible_user }}"
   file:
     path: "/home/{{ ansible_user }}/.ssh"
     state: directory
@@ -22,7 +21,6 @@
   stat:
     path: /home/{{ ansible_user }}/.ssh/id_rsa
   register: ssh_key_stat
-  become: true
   tags: ssh
 
 - name: Generate SSH key pair

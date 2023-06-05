@@ -18,7 +18,6 @@
     remote_src: yes
     creates: /usr/local/go
   become: true
-  become_user: "{{ ansible_user }}"
   tags: go
 
 - name: Install Go tools
@@ -26,23 +25,18 @@
     export PATH="/usr/local/go/bin:$PATH"
     go install github.com/jesseduffield/lazydocker@latest
     go install github.com/jesseduffield/lazygit@latest
-  become: true
-  become_user: "{{ ansible_user }}"
   tags: go
 
 - name: Clone zk
   git:
     repo: https://github.com/mickael-menu/zk.git
-    dest: ~/local/zk
+    dest: /home/{{ ansible_user }}/local/zk
     version: main
-  become: true
-  become_user: "{{ ansible_user }}"
   tags: go
-
+#
 - name: Make zk
-  command: make
-  args:
-    chdir: ~/local/zk
-  become: true
-  become_user: "{{ ansible_user }}"
+  shell: |
+    export PATH="/usr/local/go/bin:$PATH"
+    cd /home/{{ ansible_user }}/local/zk
+    make
   tags: go
