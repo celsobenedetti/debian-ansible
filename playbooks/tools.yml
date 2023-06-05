@@ -2,33 +2,26 @@
 - name: Install workflow tools
   apt:
     name:
-      - zsh
       - tmux
       - ripgrep
       - fd-find
       - jq
       - zoxide
       - direnv
-
     state: present
-  tags: tools
-
-- name: Install Oh My Zsh
-  shell: |
-    wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    sh install.sh --unattended
-    rm install.sh
-
   become: true
-  become_user: "{{ ansible_user }}"
   tags: tools
 
 - name: Install fzf
   shell: |
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
-  become: true
-  become_user: "{{ ansible_user }}"
+    git clone --depth 1 https://github.com/junegunn/fzf.git /home/{{ ansible_user }}/.fzf
+    yes | bash /home/{{ ansible_user}}/.fzf/install
+  register: fzf_output
+  tags: tools
+
+- name: Print fzf output
+  debug:
+    var: fzf_output.stdout_lines
   tags: tools
 
 - name: Get GitHub CLI sources
@@ -45,5 +38,4 @@
     state: present
     update_cache: yes
   become: true
-  become_user: "{{ ansible_user }}"
   tags: tools
