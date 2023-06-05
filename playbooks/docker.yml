@@ -44,3 +44,13 @@
     state: present
   become: true
   tags: docker
+
+- name: Linux Post install recommendations
+  shell: |
+    groupadd docker 2> /dev/null
+    usermod -aG docker $USER
+    systemctl enable docker.service
+    systemctl enable containerd.service
+
+  become: true
+  tags: docker

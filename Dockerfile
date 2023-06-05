@@ -15,8 +15,7 @@ RUN apt-get update && \
 # Install Ansible
 RUN pip install ansible
 
-
-ENV USER=ansible
+WORKDIR /home/app
 
 # Create a new user
 RUN useradd -m -s /bin/bash ansible && \
