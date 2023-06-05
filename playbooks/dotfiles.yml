@@ -2,10 +2,8 @@
 - name: Clone dotfiles
   git:
     repo: git@github.com:celsobenedetti/dotfiles.git
-    dest: ~/.dotfiles/
+    dest: /home/{{ ansible_user }}/.dotfiles/
     version: main
-  become: true
-  become_user: "{{ ansible_user }}"
   tags: dotfiles
 
 - name: Install GNU Stow
@@ -16,17 +14,19 @@
   tags: dotfiles
 
 - name: Unlink existing dotfiles
-  command: stow -v -d ~/.dotfiles -t ~ -R .
+  command: stow -v -d /home/{{ ansible_user }}/.dotfiles -t /home/{{ ansible_user }} -R .
   args:
-    chdir: ~/.dotfiles
-  become: true
-  become_user: "{{ ansible_user }}"
+    chdir: /home/{{ ansible_user }}/.dotfiles
+  tags: dotfiles
+
+- name: Remove zshrc
+  file:
+    path: /home/{{ ansible_user }}/.zshrc
+    state: absent
   tags: dotfiles
 
 - name: Link dotfiles
   command: stow tmux zsh git vscode alacritty zk
   args:
-    chdir: ~/.dotfiles
-  become: true
-  become_user: "{{ ansible_user }}"
+    chdir: /home/{{ ansible_user }}/.dotfiles
   tags: dotfiles
