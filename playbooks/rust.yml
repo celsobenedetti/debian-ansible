@@ -3,6 +3,7 @@
   shell: cargo --version
   ignore_errors: true
   register: cargo_check
+  failed_when: cargo_check.rc == 0
   changed_when: false
   tags: rust
 
@@ -19,7 +20,7 @@
 
 - name: Install Rust tools
   shell: |
-    source $HOME/.cargo/env
+    export PATH="$HOME/.cargo/bin:$PATH"
     cargo install xh
     cargo install dust
     cargo install --locked bat
@@ -27,8 +28,4 @@
     cargo install exa
     cargo install fnm
     cargo install alacritty
-  environment:
-    HOME: "/home/{{ ansible_user }}"
-  become: true
-  become_user: "{{ ansible_user }}"
   tags: rust

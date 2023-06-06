@@ -3,6 +3,7 @@
   shell: nvim --version
   register: nvim_check
   changed_when: false
+  failed_when: nvim_check.rc == 0
   ignore_errors: true
   tags: neovim
 
