@@ -45,12 +45,14 @@
   become: true
   tags: docker
 
-- name: Linux Post install recommendations
+- name: Enable Docker service
   shell: |
     groupadd docker 2> /dev/null
-    usermod -aG docker $USER
-    systemctl enable docker.service
     systemctl enable containerd.service
-
+    systemctl enable docker.service
   become: true
+  tags: docker
+
+- name: Add user to docker group
+  shell: usermod -aG docker $USER
   tags: docker

@@ -6,8 +6,9 @@
       - ripgrep
       - fd-find
       - jq
-      - zoxide
       - direnv
+      - sqlite3
+      - libsqlite3-dev
     state: present
   become: true
   tags: tools
