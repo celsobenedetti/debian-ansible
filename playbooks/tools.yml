@@ -13,16 +13,40 @@
   become: true
   tags: tools
 
+- name: Install tpm
+  git:
+    repo: https://github.com/tmux-plugins/tpm A
+    dest: ~/.tmux/plugins/tpm
+  tags: tools
+
+- name: Check if fzf cli is already installed
+  shell: fzf --version
+  register: fzf_check
+  changed_when: false
+  ignore_errors: true
+  tags: tools
+  failed_when: fzf_check.rc == 0
+
 - name: Install fzf
   shell: |
     git clone --depth 1 https://github.com/junegunn/fzf.git /home/{{ ansible_user }}/.fzf
     yes | bash /home/{{ ansible_user}}/.fzf/install
   register: fzf_output
+  when: fzf_check.rc != 1
   tags: tools
 
 - name: Print fzf output
   debug:
     var: fzf_output.stdout_lines
+  tags: tools
+  when: fzf_check.rc != 1
+
+- name: Check if gh cli is already installed
+  shell: gh --version
+  register: gh_check
+  changed_when: false
+  failed_when: gh_check.rc == 0
+  ignore_errors: true
   tags: tools
 
 - name: Get GitHub CLI sources
@@ -31,6 +55,7 @@
     && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
   become: true
+  when: gh_check.rc != 0
   tags: tools
 
 - name: Install GitHub CLI
