@@ -28,17 +28,8 @@ pip install ansible
 
 ## Usage
 
-1. Get GitHub access token: [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
-
-2. Run playbook
-
-```bash
-export GH_TK=<token>
-ansible-playbook main.yml
-```
-
-3. Run encrypted playbook
-
 ```bash
 ansible-playbook env_secrets.yml --ask-vault-pass
+source ~/.zshenv
+ansible-playbook main.yml
 ```
