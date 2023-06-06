@@ -25,4 +25,6 @@ RUN useradd -m -s /bin/bash ansible && \
 # Give the user ownership of home
 RUN chown -R ansible:ansible /home/ansible/
 
+USER ansible
+
 CMD ["bash"]

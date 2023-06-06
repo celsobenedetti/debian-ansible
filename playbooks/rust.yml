@@ -1,8 +1,7 @@
 ---
 - name: Check if rust is already installed
   shell: cargo --version
-  args:
-    warn: false
+  ignore_errors: true
   register: cargo_check
   changed_when: false
   tags: rust
@@ -26,6 +25,7 @@
     cargo install --locked bat
     cargo install git-delta
     cargo install exa
+    cargo install fnm
     cargo install alacritty
   environment:
     HOME: "/home/{{ ansible_user }}"
