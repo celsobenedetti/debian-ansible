@@ -49,6 +49,10 @@
       include_tasks: playbooks/fonts.yml
       tags: fonts
 
+    - name: Include vscode tasks
+      include_tasks: playbooks/vscode.yml
+      tags: vscode
+
     - name: Include rust tasks
       include_tasks: playbooks/rust.yml
       tags: rust

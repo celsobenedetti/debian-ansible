@@ -30,3 +30,10 @@
   args:
     chdir: /home/{{ ansible_user }}/.dotfiles
   tags: dotfiles
+
+- name: Clone zk notes
+  git:
+    repo: git@github.com:celsobenedetti/zk.git
+    dest: /home/{{ ansible_user }}/Documents/notes
+    version: main
+  tags: dotfiles
