@@ -2,6 +2,7 @@
 - name: Install workflow tools
   apt:
     name:
+      - xclip
       - tmux
       - ripgrep
       - fd-find
