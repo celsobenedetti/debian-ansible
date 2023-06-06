@@ -33,24 +33,12 @@ pip install ansible
 2. Run playbook
 
 ```bash
-export USER=<ansible_user>
 export GH_TK=<token>
-ansible-playbook main.yml -K # -K asks for sudo password
+ansible-playbook main.yml
 ```
 
-## Modules
+3. Run encrypted playbook
 
-### apt.yml
-
-- Update cache & upgrade packages
-- Install packages
-
-### ssh.yml
-
-- Create new SSH key pair
-- Add public key to GitHub account
-- Add github.com as known host
-
-```
-
+```bash
+ansible-playbook env_secrets.yml --ask-vault-pass
 ```
