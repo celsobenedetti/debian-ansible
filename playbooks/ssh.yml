@@ -39,7 +39,7 @@
       Authorization: "Bearer {{ lookup('env', 'GH_TOKEN') }}"
       X-GitHub-Api-Version: 2022-11-28
 
-    body: '{"title":"ansible-provisined-ubuntu","key":"{{ lookup(''file'', ''/home/{{ ansible_user }}/.ssh/id_rsa.pub'') }}"'
+    body: '{"title":"ansible-provisioned-ubuntu","key":"{{ lookup(''file'', ''/home/{{ ansible_user }}/.ssh/id_rsa.pub'') }}"'
     status_code: 201
   become: true
   become_user: "{{ ansible_user }}"

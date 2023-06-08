@@ -1,5 +1,25 @@
 # Provision fresh Ubuntu installation with Ansible
 
+- Install core apt packages
+- Generate new SSH key and add to GitHub account
+- Install workflow tools, zsh, tmux, neovim, vscode, etc.
+- Install Go, Rust, Node and tooling
+- Clone and configure dotfiles
+- Install and configure Docker
+- Add JetBrains nerd fonts
+- Install Vagrant and VirtualBox
+
+A fine-grained GitHub access token is used to add the SSH key through the GitHub API.
+The token is stored in an encrypted file using Ansible Vault.
+
+## Usage
+
+```bash
+ansible-playbook env_secrets.yml --ask-vault-pass
+ansible-playbook main.yml
+# ansible-playbook main.yml --skip-tags rust,fonts,virtual-machines # skip some tags
+```
+
 ## Requirements
 
 1. Update apt cache & upgrade packages
@@ -24,14 +44,6 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
 
 ```bash
 pip install ansible
-```
-
-## Usage
-
-```bash
-ansible-playbook env_secrets.yml --ask-vault-pass
-source ~/.zshenv
-ansible-playbook main.yml
 ```
 
 ## Refs:

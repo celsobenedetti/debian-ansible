@@ -17,6 +17,8 @@
       - libfontconfig1-dev
       - libxcb-xfixes0-dev
       - libxkbcommon-dev
-      - python3.8-venv
+      - python3.8-venv # required by mason to install pip packages
+      - wmctrl # workspace/window management
+      - pass # UNIX password manager
   become: true
   tags: apt
