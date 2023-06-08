@@ -56,3 +56,7 @@
     - name: Include rust tasks
       include_tasks: playbooks/rust.yml
       tags: rust
+
+    - name: Include virtual machines tasks
+      include_tasks: playbooks/virtual-machines.yml
+      tags: virtual-machines
