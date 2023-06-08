@@ -3,13 +3,13 @@
   hosts: localhost
   gather_facts: false
 
-  vars_prompt:
-    - name: ansible_user
-      prompt: Run Ansible as user
-      private: no
+  vars:
+    ansible_user: "{{ lookup('env', 'USER') }}"
+    gh_token: "{{ lookup('env', 'GH_TOKEN') }}"
 
+  vars_prompt:
     - name: ansible_become_password
-      prompt: Password for user
+      prompt: sudo password for user running Ansible
       private: yes
 
   tasks:

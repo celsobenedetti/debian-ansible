@@ -1,4 +1,6 @@
-# Provision fresh Ubuntu installation with Ansible
+# Provision Ubuntu with Ansible
+
+Used to configure a new Ubuntu installation to a daily working state with Ansible.
 
 - Install core apt packages
 - Generate new SSH key and add to GitHub account
@@ -11,13 +13,23 @@
 
 A fine-grained GitHub access token is used to add the SSH key through the GitHub API.
 The token is stored in an encrypted file using Ansible Vault.
+For running the `env_secrets.yml` playbook, the ansible-vault password must be supplied
+
+- `env_secrets.yml` playbook is used to decrypt and save the `secrets.yml`
+- `main.yml` runs all the other playbooks
 
 ## Usage
 
 ```bash
+make
+```
+
+Or:
+
+```bash
 ansible-playbook env_secrets.yml --ask-vault-pass
+source ~/.zshenv
 ansible-playbook main.yml
-# ansible-playbook main.yml --skip-tags rust,fonts,virtual-machines # skip some tags
 ```
 
 ## Requirements
