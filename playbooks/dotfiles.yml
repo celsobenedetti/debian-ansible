@@ -33,7 +33,7 @@
   tags: dotfiles
 
 - name: Link dotfiles
-  command: stow tmux zsh git vscode alacritty zk nap
+  command: stow tmux zsh git vscode alacritty nap pass
   args:
     chdir: /home/{{ ansible_user }}/.dotfiles
   tags: dotfiles
