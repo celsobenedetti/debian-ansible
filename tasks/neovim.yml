@@ -36,11 +36,13 @@
   tags: neovim
   when: nvim_check.rc != 0
 
-- name: Clone neovim config files
-  git:
-    repo: git@github.com:celsobenedetti/nvim.git
-    dest: /home/{{ ansible_user }}/.config/nvim
-    version: main
+- name: Install post neovim dependencies
+  apt:
+    name:
+      - python3.8-venv # required by mason to install pip packages
+    state: present
+  become: true
+  ignore_errors: true
   tags: neovim
 
 - name: Install neovim plugins

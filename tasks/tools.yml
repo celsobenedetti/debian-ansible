@@ -16,8 +16,8 @@
 
 - name: Install tpm
   git:
-    repo: https://github.com/tmux-plugins/tpm A
-    dest: ~/.tmux/plugins/tpm
+    repo: https://github.com/tmux-plugins/tpm
+    dest: /home/{{ ansible_user }}/.tmux/plugins/tpm
   tags: tools
 
 - name: Check if fzf cli is already installed

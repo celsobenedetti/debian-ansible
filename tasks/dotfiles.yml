@@ -37,3 +37,10 @@
   args:
     chdir: /home/{{ ansible_user }}/.dotfiles
   tags: dotfiles
+
+- name: Clone neovim config files
+  git:
+    repo: git@github.com:celsobenedetti/nvim.git
+    dest: /home/{{ ansible_user }}/.config/nvim
+    version: main
+  tags: dotfiles

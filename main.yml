@@ -1,62 +1,53 @@
 ---
 - name: Provision Ubuntu
-  hosts: localhost
+  hosts: all
   gather_facts: false
 
   vars:
     ansible_user: "{{ lookup('env', 'USER') }}"
     gh_token: "{{ lookup('env', 'GH_TOKEN') }}"
 
-  vars_prompt:
-    - name: ansible_become_password
-      prompt: sudo password for user running Ansible
-      private: yes
-
   tasks:
     - name: Include apt tasks
-      include_tasks: playbooks/apt.yml
+      include_tasks: tasks/apt.yml
       tags: apt
 
     - name: Include ssh tasks
-      include_tasks: playbooks/ssh.yml
+      include_tasks: tasks/ssh.yml
       tags: ssh
 
     - name: Include tools tasks
-      include_tasks: playbooks/tools.yml
+      include_tasks: tasks/tools.yml
       tags: tools
 
     - name: Include zsh tasks
-      include_tasks: playbooks/zsh.yml
+      include_tasks: tasks/zsh.yml
       tags: zsh
 
     - name: Include dotfiles tasks
-      include_tasks: playbooks/dotfiles.yml
+      include_tasks: tasks/dotfiles.yml
       tags: dotfiles
 
     - name: Include neovim tasks
-      include_tasks: playbooks/neovim.yml
+      include_tasks: tasks/neovim.yml
       tags: neovim
 
     - name: Include go tasks
-      include_tasks: playbooks/go.yml
+      include_tasks: tasks/go.yml
       tags: go
 
     - name: Include docker tasks
-      include_tasks: playbooks/docker.yml
+      include_tasks: tasks/docker.yml
       tags: docker
 
     - name: Include fonts tasks
-      include_tasks: playbooks/fonts.yml
+      include_tasks: tasks/fonts.yml
       tags: fonts
 
     - name: Include vscode tasks
-      include_tasks: playbooks/vscode.yml
+      include_tasks: tasks/vscode.yml
       tags: vscode
 
     - name: Include rust tasks
-      include_tasks: playbooks/rust.yml
+      include_tasks: tasks/rust.yml
       tags: rust
-
-    - name: Include virtual machines tasks
-      include_tasks: playbooks/virtual-machines.yml
-      tags: virtual-machines
