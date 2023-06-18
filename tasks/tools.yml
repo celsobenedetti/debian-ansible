@@ -4,6 +4,7 @@
     name:
       - xclip
       - tmux
+      - tmuxinator
       - ripgrep
       - fd-find
       - jq
