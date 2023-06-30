@@ -29,7 +29,10 @@ Or:
 ```bash
 ansible-playbook env_secrets.yml --ask-vault-pass
 source ~/.zshenv
-ansible-playbook main.yml
+ansible-playbook main.yml -i inventory.ini
+
+# specific tags
+ansible-playbook main.yml -i inventory.ini --ask-become-pass --tags terraform
 ```
 
 ## Requirements

@@ -40,6 +40,10 @@
       include_tasks: tasks/docker.yml
       tags: docker
 
+    - name: Include terraform tasks
+      include_tasks: tasks/terraform.yml
+      tags: terraform
+
     - name: Include fonts tasks
       include_tasks: tasks/fonts.yml
       tags: fonts
