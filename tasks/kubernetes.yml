@@ -1,0 +1,12 @@
+---
+- name: Install minikube
+  shell: |
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+    sudo dpkg -i minikube_latest_amd64.deb
+    rm minikube*.deb
+  become: true
+  tags: k8s
+
+- name: Install kind
+  command: go install sigs.k8s.io/kind@v0.20.0
+  tags: k8s
