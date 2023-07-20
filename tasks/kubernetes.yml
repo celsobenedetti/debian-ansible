@@ -1,12 +1,20 @@
 ---
-- name: Install minikube
-  shell: |
-    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
-    sudo dpkg -i minikube_latest_amd64.deb
-    rm minikube*.deb
-  become: true
-  tags: k8s
+# - name: Install minikube
+#   shell: |
+#     curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+#     sudo dpkg -i minikube_latest_amd64.deb
+#     rm minikube*.deb
+#   become: true
+#   tags: k8s
+#
+# - name: Install kind
+#   command: go install sigs.k8s.io/kind@v0.20.0
+#   tags: k8s
 
-- name: Install kind
-  command: go install sigs.k8s.io/kind@v0.20.0
+- name: Install kubectl
+  shell: |
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    rm kubectl
+  become: true
   tags: k8s
