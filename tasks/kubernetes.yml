@@ -1,20 +1,67 @@
 ---
-# - name: Install minikube
-#   shell: |
-#     curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
-#     sudo dpkg -i minikube_latest_amd64.deb
-#     rm minikube*.deb
-#   become: true
-#   tags: k8s
+- name: Check if minikube is already installed
+  shell: minikube version
+  register: minikube_check
+  changed_when: false
+  ignore_errors: true
+  tags: k8s
+
+- name: Check if kind is already installed
+  shell: kind version
+  register: kind_check
+  changed_when: false
+  ignore_errors: true
+  tags: k8s
+
+- name: Check if kubectl is already installed
+  shell: kubectl version --output=json
+  register: kubectl_check
+  changed_when: false
+  ignore_errors: true
+  tags: k8s
+
+- name: Check if helm is already installed
+  shell: helm version
+  register: helm_check
+  changed_when: false
+  ignore_errors: true
+  tags: k8s
+
+- name: Install minikube
+  shell: |
+    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+    sudo dpkg -i minikube_latest_amd64.deb
+    rm minikube*.deb
+  become: true
+  when: minikube_check.rc != 0
+  tags: k8s
 #
-# - name: Install kind
-#   command: go install sigs.k8s.io/kind@v0.20.0
-#   tags: k8s
+- name: Install kind
+  command: go install sigs.k8s.io/kind@v0.20.0
+  when: kind_check.rc != 0
+  tags: k8s
 
 - name: Install kubectl
   shell: |
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
     sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
     rm kubectl
+  become: true
+  when: kubectl_check != 0
+  tags: k8s
+
+- name: Add helm repos
+  shell: |
+    curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+    sudo apt-get install apt-transport-https --yes
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+  become: true
+  when: helm_check != 0
+  tags: k8s
+
+- name: Install helm
+  apt:
+    name: helm
+    update_cache: yes
   become: true
   tags: k8s
