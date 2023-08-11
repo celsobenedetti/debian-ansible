@@ -28,6 +28,7 @@
     go install github.com/xxxserxxx/gotop/v4/cmd/gotop@latest
     go install github.com/charmbracelet/gum@latest
     go install github.com/maaslalani/nap@main
+    go install github.com/go-delve/delve/cmd/dlv@latest
   tags: go
 
 - name: Clone zk
