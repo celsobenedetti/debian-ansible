@@ -29,4 +29,5 @@
     cargo install exa
     cargo install fnm
     cargo install alacritty
+    cargo install hurl
   tags: rust
