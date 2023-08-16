@@ -4,19 +4,16 @@
   become: true
   tags: go
 
-- name: Get Go
-  get_url:
-    url: https://go.dev/dl/{{ go_version }}
-    dest: /tmp/{{ go_version }}
-    mode: "0644"
+- name: Get Go version
+  shell: curl -s https://go.dev/VERSION\?m=text | awk 'NR==1'
+  register: go_version
   tags: go
 
-- name: Install Go
-  unarchive:
-    src: /tmp/{{ go_version }}
-    dest: /usr/local
-    remote_src: yes
-    creates: /usr/local/go
+- name: Download and extract Go
+  shell: |
+    wget "https://dl.google.com/go/{{ go_version.stdout }}.linux-amd64.tar.gz"
+    tar -C /usr/local -xzf go*.tar.gz
+    rm ./go*.tar.gz
   become: true
   tags: go
 
