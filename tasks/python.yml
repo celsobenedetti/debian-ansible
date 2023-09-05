@@ -1,0 +1,16 @@
+---
+- name: Check if pyenv is already installed
+  shell: pyenv
+  ignore_errors: true
+  register: pyenv_check
+  failed_when: pyenv_check.rc == 0
+  changed_when: false
+  tags: python
+
+- name: Install pyenv
+  shell: |
+    curl https://pyenv.run | bash
+  become: true
+  become_user: "{{ ansible_user }}"
+  tags: python
+  when: pyenv_check.rc != 0

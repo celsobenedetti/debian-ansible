@@ -36,6 +36,10 @@
       include_tasks: tasks/go.yml
       tags: go
 
+    - name: Include python tasks
+      include_tasks: tasks/python.yml
+      tags: python
+
     - name: Include docker tasks
       include_tasks: tasks/docker.yml
       tags: docker
