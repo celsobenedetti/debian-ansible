@@ -1,0 +1,16 @@
+---
+- name: Clone zk
+  git:
+    repo: https://github.com/mickael-menu/zk.git
+    dest: /home/{{ ansible_user }}/local/zk
+    version: main
+  tags: zk
+#
+- name: Make zk
+  shell: |
+    export PATH="/usr/local/go/bin:$PATH"
+    cd /home/{{ ansible_user }}/local/zk
+    make
+    sudo cp zk /usr/local/bin
+  tags: zk
+  become: true

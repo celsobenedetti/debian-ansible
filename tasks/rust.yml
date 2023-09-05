@@ -28,6 +28,12 @@
     cargo install git-delta
     cargo install exa
     cargo install fnm
-    cargo install alacritty
     cargo install hurl
+    cargo install csvlens
+  tags: rust
+
+- name: Install Alacritty
+  shell: |
+    export PATH="$HOME/.cargo/bin:$PATH"
+    cargo install alacritty
   tags: rust
