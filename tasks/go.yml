@@ -11,22 +11,22 @@
 
 - name: Download and extract Go
   shell: |
-    wget "https://dl.google.com/go/{{ go_version.stdout }}.linux-amd64.tar.gz"
-    tar -C /usr/local -xzf go*.tar.gz
-    rm ./go*.tar.gz
+      wget "https://dl.google.com/go/{{ go_version.stdout }}.linux-amd64.tar.gz"
+      tar -C /usr/local -xzf go*.tar.gz
+      rm ./go*.tar.gz
   become: true
   tags: go
 
 - name: Install Go tools
   shell: |
-    export PATH="/usr/local/go/bin:$PATH"
-    go install github.com/jesseduffield/lazydocker@latest
-    go install github.com/jesseduffield/lazygit@latest
-    go install github.com/xxxserxxx/gotop/v4/cmd/gotop@latest
-    go install github.com/charmbracelet/gum@latest
-    go install github.com/maaslalani/nap@main
-    go install github.com/go-delve/delve/cmd/dlv@latest
-    go install github.com/cosmtrek/air@latest
-    go install github.com/merschformann/gotz@latest
+      export PATH="/usr/local/go/bin:$PATH"
+      go install github.com/google/pprof@latest
+      go install github.com/jesseduffield/lazydocker@latest
+      go install github.com/jesseduffield/lazygit@latest
+      go install github.com/xxxserxxx/gotop/v4/cmd/gotop@latest
+      go install github.com/charmbracelet/gum@latest
+      go install github.com/maaslalani/nap@main
+      go install github.com/go-delve/delve/cmd/dlv@latest
+      go install github.com/cosmtrek/air@latest
+      go install github.com/merschformann/gotz@latest
   tags: go
-
