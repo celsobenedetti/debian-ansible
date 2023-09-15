@@ -33,6 +33,10 @@
       tags: neovim
 
     - name: Include go tasks
+      include_tasks: tasks/js.yml
+      tags: js
+
+    - name: Include go tasks
       include_tasks: tasks/go.yml
       tags: go
 

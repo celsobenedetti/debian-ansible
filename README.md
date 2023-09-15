@@ -9,7 +9,6 @@ Used to configure a new Ubuntu installation to a daily working state with Ansibl
 - Clone and configure dotfiles
 - Install and configure Docker
 - Add JetBrains nerd fonts
-- Extras: Vagrant, VirtualBox, VLC, etc.
 
 A fine-grained GitHub access token is used to add the SSH key through the GitHub API.
 The token is stored in an encrypted file using Ansible Vault.

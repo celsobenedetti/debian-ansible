@@ -1,0 +1,5 @@
+---
+- name: Install Bun
+  shell: curl -fsSL https://bun.sh/install | bash
+  become: true
+  tags: js
