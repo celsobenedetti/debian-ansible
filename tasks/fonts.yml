@@ -1,18 +1,33 @@
 ---
-- name: Check if donts fonts exists and has JetBrainsMono
-  shell: ls /usr/share/fonts/jetbrains | grep JetBrainsMono
-  register: fonts_check
+- name: Check if JetBrains dir exists
+  shell: ls /usr/share/fonts/jetbrains
+  register: jetbrains_check
   changed_when: false
   ignore_errors: true
   tags: fonts
 
-- name: Create fonts directory
+- name: Check if Maple dir exists
+  shell: ls /usr/share/fonts/maple
+  register: maple_check
+  changed_when: false
+  ignore_errors: true
+  tags: fonts
+
+- name: Create JetBrains fonts directory
   file:
     path: /usr/share/fonts/jetbrains
     state: directory
+  when: jetbrains_check.rc != 0
   become: true
   tags: fonts
-  when: fonts_check.stdout == "" or fonts_check.rc != 0
+
+- name: Create Maple fonts directory
+  file:
+    path: /usr/share/fonts/maple
+    state: directory
+  when: maple_check.rc != 0
+  become: true
+  tags: fonts
 
 - name: Register pwd
   shell: pwd
@@ -20,20 +35,28 @@
   changed_when: false
   tags: fonts
 
-- name: Copy fonts to system
+- name: Copy JetBrains fonts to system
   copy:
     src: "{{ item }}"
     dest: /usr/share/fonts/jetbrains
     mode: 0644
   with_fileglob:
-    - "{{ pwd.stdout }}/fonts/*"
+    - "{{ pwd.stdout }}/fonts/jetbrains/*"
   become: true
-  when: fonts_check.stdout == "" or fonts_check.rc != 0
+  tags: fonts
+
+- name: Copy Maple fonts to system
+  copy:
+    src: "{{ item }}"
+    dest: /usr/share/fonts/maple
+    mode: 0644
+  with_fileglob:
+    - "{{ pwd.stdout }}/fonts/maple/*"
+  become: true
   tags: fonts
 
 - name: Update font cache
   shell: fc-cache -f -v
   ignore_errors: true
   become: true
-  when: fonts_check.stdout == "" or fonts_check.rc != 0
   tags: fonts
