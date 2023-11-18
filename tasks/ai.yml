@@ -1,0 +1,4 @@
+- name: Install ollama
+  shell: curl https://ollama.ai/install.sh | sh
+  become: true
+  tags: ai

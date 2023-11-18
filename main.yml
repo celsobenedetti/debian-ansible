@@ -33,10 +33,6 @@
       tags: neovim
 
     - name: Include go tasks
-      include_tasks: tasks/js.yml
-      tags: js
-
-    - name: Include go tasks
       include_tasks: tasks/go.yml
       tags: go
 
@@ -64,6 +60,10 @@
       include_tasks: tasks/rust.yml
       tags: rust
 
+    - name: Include js tasks
+      include_tasks: tasks/js.yml
+      tags: js
+
     - name: Include Kubernetes tasks
       include_tasks: tasks/kubernetes.yml
       tags: k8s
@@ -71,3 +71,7 @@
     - name: Include zk tasks
       include_tasks: tasks/zk.yml
       tags: zk
+
+    - name: Include ai tasks
+      include_tasks: tasks/ai.yml
+      tags: ai
