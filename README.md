@@ -55,6 +55,14 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
 pip install ansible
 ```
 
+## Scan repo for secrets with Gitleaks
+
+```bash
+docker run -v $(pwd):/path ghcr.io/gitleaks/gitleaks:latest detect --source "/path" -v
+```
+
+## Refs
+
 - Get GitHub access token: [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
 - [GitHub API - Create a public SSH key to authenticated user](https://docs.github.com/en/rest/users/keys?apiVersion=2022-11-28#create-a-public-ssh-key-for-the-authenticated-user)
 - [Error handling in playbooks](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_error_handling.html)
