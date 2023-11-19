@@ -9,8 +9,6 @@
       - fd-find
       - jq
       - direnv
-      - sqlite3
-      - libsqlite3-dev
       - nala
     state: present
   become: true
