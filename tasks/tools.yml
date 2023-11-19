@@ -11,6 +11,7 @@
       - direnv
       - sqlite3
       - libsqlite3-dev
+      - nala
     state: present
   become: true
   tags: tools
