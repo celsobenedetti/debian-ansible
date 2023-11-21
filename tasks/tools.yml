@@ -9,7 +9,8 @@
       - fd-find
       - jq
       - direnv
-      - nala
+      - nala # apt manager
+
     state: present
   become: true
   tags: tools
