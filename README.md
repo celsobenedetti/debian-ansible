@@ -23,10 +23,10 @@ ansible-playbook env_secrets.yml --ask-vault-pass
 # export secrets on current shell, including GH_TK used by Github SSH task
 source ~/.zshenv
 # run all tasks
-ansible-playbook main.yml -i inventory.ini --ask-become-pass
+ansible-playbook main.yml --ask-become-pass
 
 # specific tags
-ansible-playbook main.yml -i inventory.ini --ask-become-pass --tags terraform,k8s
+ansible-playbook main.yml --ask-become-pass --tags terraform,k8s
 ```
 
 ## Requirements
@@ -53,6 +53,14 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
 
 ```bash
 pip install ansible
+```
+
+## Extras
+
+### Sway
+
+```bash
+ansible-playbook ./extras/sway.yml
 ```
 
 ## Scan repo for secrets with Gitleaks

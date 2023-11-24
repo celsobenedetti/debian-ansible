@@ -1,6 +1,6 @@
 ---
 - name: Provision Ubuntu
-  hosts: all
+  hosts: localhost
   gather_facts: false
 
   vars:

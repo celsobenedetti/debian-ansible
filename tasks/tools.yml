@@ -2,14 +2,16 @@
 - name: Install workflow tools
   apt:
     name:
-      - xclip
+      - pass # UNIX password manager
+      - playerctl # media control cli
+      - nala # apt manager
+      - xclip # clipboard
       - tmux
       - tmuxinator
       - ripgrep
       - fd-find
       - jq
       - direnv
-      - nala # apt manager
 
     state: present
   become: true

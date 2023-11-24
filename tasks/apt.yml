@@ -21,9 +21,6 @@
       - libssl-dev
       - libcurl4-openssl-dev
       - libxml2-dev
-      - wmctrl # workspace/window management
-      - pass # UNIX password manager
-      - playerctl # media control cli
 
   become: true
   tags: apt
