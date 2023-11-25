@@ -1,46 +1,39 @@
 ---
 - name: Clone dotfiles
   git:
-    repo: git@github.com:celsobenedetti/dotfiles.git
-    dest: /home/{{ ansible_user }}/.dotfiles/
-    version: main
+      repo: git@github.com:celsobenedetti/dotfiles.git
+      dest: /home/{{ ansible_user }}/.dotfiles/
+      version: main
   tags: dotfiles
 
 - name: Clone zk notes
   git:
-    repo: git@github.com:celsobenedetti/zk.git
-    dest: /home/{{ ansible_user }}/Documents/notes
-    version: main
+      repo: git@github.com:celsobenedetti/zk.git
+      dest: /home/{{ ansible_user }}/Documents/notes
+      version: main
   tags: dotfiles
 
 - name: Install GNU Stow
   apt:
-    name: stow
-    state: present
+      name: stow
+      state: present
   become: true
   tags: dotfiles
 
 - name: Unlink existing dotfiles
-  command: stow -D .
+  command: stow -D alacritty bin git gtk nvim snippets sway tmux wofi zk zsh
   args:
-    chdir: /home/{{ ansible_user }}/.dotfiles
+      chdir: /home/{{ ansible_user }}/.dotfiles
   tags: dotfiles
 
 - name: Remove zshrc
   file:
-    path: /home/{{ ansible_user }}/.zshrc
-    state: absent
+      path: /home/{{ ansible_user }}/.zshrc
+      state: absent
   tags: dotfiles
 
 - name: Link dotfiles
-  command: stow tmux zsh git vscode alacritty nap pass bin
+  command: stow alacritty bin git gtk nvim snippets sway tmux wofi zk zsh
   args:
-    chdir: /home/{{ ansible_user }}/.dotfiles
-  tags: dotfiles
-
-- name: Clone neovim config files
-  git:
-    repo: git@github.com:celsobenedetti/nvim.git
-    dest: /home/{{ ansible_user }}/.config/nvim
-    version: main
+      chdir: /home/{{ ansible_user }}/.dotfiles
   tags: dotfiles
