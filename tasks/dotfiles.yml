@@ -21,7 +21,7 @@
   tags: dotfiles
 
 - name: Unlink existing dotfiles
-  command: stow -D alacritty bin git gtk nvim snippets sway tmux wofi zk zsh
+  command: make unlink
   args:
     chdir: /home/{{ ansible_user }}/.dotfiles
   ignore_errors: true
@@ -34,7 +34,7 @@
   tags: dotfiles
 
 - name: Link dotfiles
-  command: stow alacritty bin git gtk nvim snippets sway tmux wofi zk zsh
+  command: make link
   args:
     chdir: /home/{{ ansible_user }}/.dotfiles
   tags: dotfiles
