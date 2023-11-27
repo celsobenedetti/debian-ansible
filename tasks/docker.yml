@@ -54,6 +54,8 @@
   tags: docker
 
 - name: Add user to docker group
-  shell: usermod -aG docker $USER
+  shell: |
+    usermod -aG docker "{{ ansible_user }}"
+    newgrp docker
   become: true
   tags: docker
