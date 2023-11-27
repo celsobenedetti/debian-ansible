@@ -1,0 +1,12 @@
+---
+- name: Install Alacritty
+  shell: |
+    export PATH="$HOME/.cargo/bin:$PATH"
+    cargo install alacritty
+  tags: rust
+
+---
+- name: Install misc tools
+  apt:
+    name:
+      - playerctl # media control cli
