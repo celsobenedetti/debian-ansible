@@ -17,50 +17,30 @@ For running the `env_secrets.yml` playbook, the ansible-vault password must be s
 - `env_secrets.yml` playbook is used to decrypt and save the `secrets.yml`
 - `main.yml` runs all the other playbooks
 
-```bash
-# decrypt secrets and create ~/.zshenv file with their KVs
-ansible-playbook env_secrets.yml --ask-vault-pass
-# export secrets on current shell, including GH_TK used by Github SSH task
-source ~/.zshenv
-# run all tasks
-ansible-playbook main.yml --ask-become-pass
-
-# specific tags
-ansible-playbook main.yml --ask-become-pass --tags terraform,k8s
-```
-
-## Requirements
-
-1. Update apt cache & upgrade packages
+## Steps
 
 ```bash
-sudo apt update && sudo apt upgrade -y && sudo apt install -y curl
-```
+# 1. Update system and install basic requirements
+sudo apt update \
+	&& sudo apt upgrade -y \
+	&& sudo apt install git curl python3 python3.11-venv
 
-2. Install pip
+# 2. Clone Ansible s cripts repo
+git clone https://github.com/celsobenedetti/debian-ansible.git ~/local/debian-ansible
 
-```bash
-python3 --version # check if python3 is installed
-python3 -m pip -V # check if pip is installed
+# 3. Create python venv and add python bins to $PATH
+python3 -venv ~/.local/venv
+export PATH=~/.local/venv/bin:$PATH
 
-# if not installed:
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
-    && python3 get-pip.py  \
-    && rm get-pip.py
-```
-
-3. Install Ansible
-
-```bash
+# 4. Install Ansible
 pip install ansible
-```
 
-## Extras
+# 5. Decrypt env secrets
+ansible-playbook env_secrets.yml --ask-vault-pass
+source ~/.zshenv
 
-### Sway
-
-```bash
-ansible-playbook ./extras/sway.yml
+# 6. Run main playbook
+ansible-playbook main.yml --ask-become-pass
 ```
 
 ## Scan repo for secrets with Gitleaks
