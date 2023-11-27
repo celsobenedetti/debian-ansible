@@ -14,6 +14,8 @@
       apt:
         name:
           - sway
+          - swayidle
+          - swaylock
           - grim # screenshot
           - slurp # screenshot selection
           - xfg-desktop-portal-wlr # xfg-desktop-portal backend used for screensharing
