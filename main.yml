@@ -28,6 +28,10 @@
       include_tasks: tasks/dotfiles.yml
       tags: dotfiles
 
+    - name: Include js tasks
+      include_tasks: tasks/js.yml
+      tags: js
+
     - name: Include neovim tasks
       include_tasks: tasks/neovim.yml
       tags: neovim
@@ -59,10 +63,6 @@
     - name: Include rust tasks
       include_tasks: tasks/rust.yml
       tags: rust
-
-    - name: Include js tasks
-      include_tasks: tasks/js.yml
-      tags: js
 
     - name: Include Kubernetes tasks
       include_tasks: tasks/kubernetes.yml
