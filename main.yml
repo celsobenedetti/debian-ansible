@@ -52,14 +52,6 @@
       include_tasks: tasks/terraform.yml
       tags: terraform
 
-    - name: Include fonts tasks
-      include_tasks: tasks/fonts.yml
-      tags: fonts
-
-    - name: Include vscode tasks
-      include_tasks: tasks/vscode.yml
-      tags: vscode
-
     - name: Include rust tasks
       include_tasks: tasks/rust.yml
       tags: rust

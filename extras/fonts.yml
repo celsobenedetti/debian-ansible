@@ -4,14 +4,12 @@
   register: jetbrains_check
   changed_when: false
   ignore_errors: true
-  tags: fonts
 
 - name: Check if Maple dir exists
   shell: ls /usr/share/fonts/maple
   register: maple_check
   changed_when: false
   ignore_errors: true
-  tags: fonts
 
 - name: Create JetBrains fonts directory
   file:
@@ -19,7 +17,6 @@
     state: directory
   when: jetbrains_check.rc != 0
   become: true
-  tags: fonts
 
 - name: Create Maple fonts directory
   file:
@@ -27,13 +24,11 @@
     state: directory
   when: maple_check.rc != 0
   become: true
-  tags: fonts
 
 - name: Register pwd
   shell: pwd
   register: pwd
   changed_when: false
-  tags: fonts
 
 - name: Copy JetBrains fonts to system
   copy:
@@ -43,7 +38,6 @@
   with_fileglob:
     - "{{ pwd.stdout }}/fonts/jetbrains/*"
   become: true
-  tags: fonts
 
 - name: Copy Maple fonts to system
   copy:
@@ -53,10 +47,8 @@
   with_fileglob:
     - "{{ pwd.stdout }}/fonts/maple/*"
   become: true
-  tags: fonts
 
 - name: Update font cache
   shell: fc-cache -f -v
   ignore_errors: true
   become: true
-  tags: fonts
