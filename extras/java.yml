@@ -1,0 +1,21 @@
+---
+- name: Install Java related software
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Run apt update & upgrade
+      apt:
+        update_cache: yes
+        upgrade: yes
+      become: true
+
+    - name: Install dependencies
+      apt:
+        name:
+          - zip
+          - unzip
+      become: true
+
+    - name: Install SDKMAN
+      shell: curl -s https://get.sdkman.io | bash
