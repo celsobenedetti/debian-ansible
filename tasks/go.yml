@@ -34,5 +34,4 @@
     go install github.com/charmbracelet/glow@latest
     go install github.com/zricethezav/gitleaks/v8@latestgo
     go install github.com/tomnomnom/gron@latest
-    go get -u github.com/cweill/gotests/...
   tags: go

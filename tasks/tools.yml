@@ -5,7 +5,6 @@
       - pass # UNIX password manager
       - playerctl # media control cli
       - nala # apt manager
-      - copyq # clipboard
       - tmux
       - tmuxinator
       - ripgrep
