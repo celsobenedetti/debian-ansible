@@ -7,7 +7,7 @@ Personal Ansible scripts to configure a new Debian based installation to a daily
 - Install workflow tools, zsh, tmux, neovim, vscode, etc.
 - Install Go, Rust, Node and tooling
 - Clone and configure dotfiles
-- Install and configure Docker, K8s, Terraform, Ollama
+- Install and configure Docker, K8s, Terraform, Ollamareadm
 - Install [nerd fonts](./fonts/)
 
 A fine-grained GitHub access token is used to add the SSH key through the GitHub API.
@@ -23,7 +23,7 @@ For running the `env_secrets.yml` playbook, the ansible-vault password must be s
 # 1. Update system and install basic requirements
 sudo apt update \
 	&& sudo apt upgrade -y \
-	&& sudo apt install git curl python3 python3.11-venv
+	&& sudo apt install git curl python3 python3-pip python3.11-venv
 
 # 2. Clone Ansible s cripts repo
 git clone https://github.com/celsobenedetti/debian-ansible.git ~/local/debian-ansible
@@ -41,6 +41,9 @@ source ~/.zshenv
 
 # 6. Run main playbook
 ansible-playbook main.yml --ask-become-pass
+
+# 7. (Optional) Extras
+ansible-playbook extra.yml --ask-become-pass --tags vscode
 ```
 
 ## Scan repo for secrets with Gitleaks

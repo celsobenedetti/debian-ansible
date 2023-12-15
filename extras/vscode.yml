@@ -4,6 +4,7 @@
   register: vscode_status
   failed_when: false
   changed_when: false
+  tags: vscode
 
 - name: Install wget and gpg
   apt:
@@ -12,6 +13,7 @@
       - gpg
   become: true
   when: vscode_status.rc != 0
+  tags: vscode
 
 - name: Add Microsoft GPG key and Visual Studio Code repository
   shell: |
@@ -21,6 +23,7 @@
     rm -f packages.microsoft.gpg
   when: vscode_status.rc != 0
   become: true
+  tags: vscode
 
 - name: Update apt cache
   apt:
@@ -28,6 +31,7 @@
     update_cache: yes
   become: true
   when: vscode_status.rc != 0
+  tags: vscode
 
 - name: Install Visual Studio Code
   apt:
@@ -35,3 +39,4 @@
     state: latest
   become: true
   when: vscode_status.rc != 0
+  tags: vscode

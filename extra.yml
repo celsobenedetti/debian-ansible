@@ -1,0 +1,16 @@
+---
+- name: Provision Ubuntu
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    ansible_user: "{{ lookup('env', 'USER') }}"
+
+  tasks:
+    - name: Include fonts tasks
+      include_tasks: extras/fonts.yml
+      tags: fonts
+
+    - name: Include VSCode tasks
+      include_tasks: extras/vscode.yml
+      tags: vscode
