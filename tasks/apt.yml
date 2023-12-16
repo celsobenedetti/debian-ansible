@@ -12,7 +12,15 @@
       - git
       - wget
       - curl
+  become: true
+  tags: apt
+
+- name: Install useful dev packages
+  apt:
+    name:
       - cmake
       - build-essential
+      - pkg-config
+      - libssl-dev
   become: true
   tags: apt
