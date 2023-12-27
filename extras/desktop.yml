@@ -10,3 +10,4 @@
   apt:
     name:
       - playerctl # media control cli
+      - wmctrl # window/workspace management cli tool
