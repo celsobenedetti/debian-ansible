@@ -7,6 +7,10 @@
     ansible_user: "{{ lookup('env', 'USER') }}"
 
   tasks:
+    - name: Include alacritty tasks
+      include_tasks: extras/alacritty.yml
+      tags: alacritty
+
     - name: Include fonts tasks
       include_tasks: extras/fonts.yml
       tags: fonts
@@ -14,3 +18,4 @@
     - name: Include VSCode tasks
       include_tasks: extras/vscode.yml
       tags: vscode
+

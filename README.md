@@ -45,6 +45,12 @@ ansible-playbook main.yml --ask-become-pass
 ansible-playbook extra.yml --ask-become-pass --tags vscode
 ```
 
+## Update default terminal
+
+```bash
+sudo update-alternatives --config x-terminal-emulator
+```
+
 ## Scan repo for secrets with Gitleaks
 
 ```bash

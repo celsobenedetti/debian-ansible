@@ -3,7 +3,6 @@
   apt:
     name:
       - pass # UNIX password manager
-      - playerctl # media control cli
       - nala # apt manager
       - tmux
       - tmuxinator
