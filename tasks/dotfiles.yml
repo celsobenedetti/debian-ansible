@@ -15,7 +15,7 @@
 
 - name: Install GNU Stow
   apt:
-    name: stow
+    name: make link
     state: present
   become: true
   tags: dotfiles

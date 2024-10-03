@@ -24,10 +24,7 @@
     cargo install xh
     cargo install dust
     cargo install --locked bat
-    cargo install --locked zoxide
     cargo install git-delta
     cargo install exa
     cargo install fnm
-    cargo install hurl
-    cargo install csvlens
   tags: rust

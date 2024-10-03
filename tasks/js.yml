@@ -5,10 +5,6 @@
     fnm install --lts
   tags: js
 
-- name: Install Bun
-  shell: curl -fsSL https://bun.sh/install | bash
-  tags: js
-
 - name: Install pnpm
   shell: curl -fsSL https://get.pnpm.io/install.sh | sh -
   tags: js

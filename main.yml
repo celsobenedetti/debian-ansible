@@ -12,6 +12,10 @@
       include_tasks: tasks/apt.yml
       tags: apt
 
+    - name: Include docker tasks
+      include_tasks: tasks/docker.yml
+      tags: docker
+
     - name: Include ssh tasks
       include_tasks: tasks/ssh.yml
       tags: ssh
@@ -28,9 +32,9 @@
       include_tasks: tasks/dotfiles.yml
       tags: dotfiles
 
-    - name: Include js tasks
-      include_tasks: tasks/js.yml
-      tags: js
+    - name: Include rust tasks
+      include_tasks: tasks/rust.yml
+      tags: rust
 
     - name: Include neovim tasks
       include_tasks: tasks/neovim.yml
@@ -40,21 +44,18 @@
       include_tasks: tasks/go.yml
       tags: go
 
+    - name: Include js tasks
+      include_tasks: tasks/js.yml
+      tags: js
+
     - name: Include python tasks
       include_tasks: tasks/python.yml
       tags: python
-
-    - name: Include docker tasks
-      include_tasks: tasks/docker.yml
-      tags: docker
 
     - name: Include terraform tasks
       include_tasks: tasks/terraform.yml
       tags: terraform
 
-    - name: Include rust tasks
-      include_tasks: tasks/rust.yml
-      tags: rust
 
     - name: Include Kubernetes tasks
       include_tasks: tasks/kubernetes.yml

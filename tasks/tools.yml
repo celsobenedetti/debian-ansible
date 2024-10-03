@@ -11,9 +11,13 @@
       - fd-find
       - jq
       - direnv
-
     state: present
   become: true
+  tags: tools
+
+- name: Link fd
+  shell: |
+    ln -s $(which fdfind) ~/.local/bin/fd
   tags: tools
 
 - name: Install tpm
