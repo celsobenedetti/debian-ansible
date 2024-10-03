@@ -9,7 +9,7 @@
   tasks:
     - name: Check if Phoronix Test Suite already installed
       shell: phoronix-test-suite
-      register: phoronix_installation
+      register: phoronix_check
       ignore_errors: true
       tags: phoronix
 
@@ -20,19 +20,19 @@
           - php-cli
           - php-xml
       become: true
-      when: not phoronix_installation.stat.exists
+      when: phoronix_check.rc != 0
       tags: php
 
     - name: Download Phoronix Test Suite
       shell: |
         wget https://github.com/phoronix-test-suite/phoronix-test-suite/archive/refs/heads/master.zip -O ~/Downloads/phoronix.zip
-      when: not phoronix_installation.stat.exists
+      when: not phoronix_check.stat.exists
       tags: phoronix
 
     - name: Unzip Phoronix
       shell: |
         unzip ~/Downloads/phoronix.zip -d ~/local/
-      when: not phoronix_installation.stat.exists
+      when: not phoronix_check.stat.exists
       tags: phoronix
 
     - name: Install Phoronix
@@ -41,9 +41,9 @@
         chdir: /home/{{ ansible_user }}/local/phoronix-test-suite-master/
       become: true
       register: install_phoronix
-      when: not phoronix_installation.stat.exists
+      when: not phoronix_check.stat.exists
       tags: phoronix
 
     - debug: msg="{{install_phoronix.stdout}}"
-      when: not phoronix_installation.stat.exists
+      when: not phoronix_check.stat.exists
       tags: phoronix
