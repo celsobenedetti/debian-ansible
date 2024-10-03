@@ -36,10 +36,6 @@
       include_tasks: tasks/rust.yml
       tags: rust
 
-    - name: Include neovim tasks
-      include_tasks: tasks/neovim.yml
-      tags: neovim
-
     - name: Include go tasks
       include_tasks: tasks/go.yml
       tags: go
@@ -52,14 +48,17 @@
       include_tasks: tasks/python.yml
       tags: python
 
+    - name: Include neovim tasks
+      include_tasks: tasks/neovim.yml
+      tags: neovim
+
     - name: Include terraform tasks
       include_tasks: tasks/terraform.yml
       tags: terraform
 
-
-    - name: Include Kubernetes tasks
-      include_tasks: tasks/kubernetes.yml
-      tags: k8s
+    # - name: Include Kubernetes tasks
+    #   include_tasks: tasks/kubernetes.yml
+    #   tags: k8s
 
     - name: Include zk tasks
       include_tasks: tasks/zk.yml

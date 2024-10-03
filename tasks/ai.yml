@@ -2,3 +2,8 @@
   shell: curl https://ollama.ai/install.sh | sh
   become: true
   tags: ai
+
+- name: Install Plandex
+  shell: |
+    curl -sL https://plandex.ai/install.sh | bash
+  tags: ai

@@ -35,8 +35,7 @@ export PATH=~/.local/venv/bin:$PATH
 # 4. Install Ansible
 pip install ansible
 
-# 5. Decrypt env secrets
-ansible-playbook env_secrets.yml --ask-vault-pass
+# 5. Decrypt env secrets...
 source ~/.zshenv
 
 # 6. Run main playbook

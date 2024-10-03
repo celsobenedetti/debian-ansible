@@ -36,15 +36,6 @@
   tags: neovim
   when: nvim_check.rc != 0
 
-- name: Install post neovim dependencies
-  apt:
-    name:
-      - python3.11-venv # required by mason to install pip packages
-    state: present
-  become: true
-  ignore_errors: true
-  tags: neovim
-
 - name: Install neovim plugins
   shell: nvim --headless "+Lazy! sync" +qa
   tags: neovim

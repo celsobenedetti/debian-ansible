@@ -14,7 +14,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Ansible
-RUN pip install ansible
+#RUN pip install ansible
 
 WORKDIR /home/app
 

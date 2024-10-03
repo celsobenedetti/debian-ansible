@@ -9,7 +9,7 @@
 - name: Clone zk notes
   git:
     repo: git@github.com:celsobenedetti/zk.git
-    dest: /home/{{ ansible_user }}/Documents/notes
+    dest: /home/{{ ansible_user }}/notes
     version: main
   tags: dotfiles
 

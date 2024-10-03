@@ -73,9 +73,3 @@
   become: true
   tags: tools
 
-- name: Install Plandex
-  shell: |
-    curl -sL https://plandex.ai/install.sh | bash
-  tags: tools
-
-
