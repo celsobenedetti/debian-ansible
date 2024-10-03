@@ -1,0 +1,13 @@
+---
+- name: Setup PHP
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Install PHP
+      apt:
+        name:
+          - php-common
+          - php-cli
+      become: true
+      tags: php

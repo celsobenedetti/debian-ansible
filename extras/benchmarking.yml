@@ -1,0 +1,49 @@
+---
+- name: Benchmarking tools
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    ansible_user: "{{ lookup('env', 'USER') }}"
+
+  tasks:
+    - name: Check if Phoronix Test Suite already installed
+      shell: phoronix-test-suite
+      register: phoronix_installation
+      ignore_errors: true
+      tags: phoronix
+
+    - name: Install PHP requirements
+      apt:
+        name:
+          - php-common
+          - php-cli
+          - php-xml
+      become: true
+      when: not phoronix_installation.stat.exists
+      tags: php
+
+    - name: Download Phoronix Test Suite
+      shell: |
+        wget https://github.com/phoronix-test-suite/phoronix-test-suite/archive/refs/heads/master.zip -O ~/Downloads/phoronix.zip
+      when: not phoronix_installation.stat.exists
+      tags: phoronix
+
+    - name: Unzip Phoronix
+      shell: |
+        unzip ~/Downloads/phoronix.zip -d ~/local/
+      when: not phoronix_installation.stat.exists
+      tags: phoronix
+
+    - name: Install Phoronix
+      script: ~/local/phoronix-test-suite-master/install-sh
+      args:
+        chdir: /home/{{ ansible_user }}/local/phoronix-test-suite-master/
+      become: true
+      register: install_phoronix
+      when: not phoronix_installation.stat.exists
+      tags: phoronix
+
+    - debug: msg="{{install_phoronix.stdout}}"
+      when: not phoronix_installation.stat.exists
+      tags: phoronix
