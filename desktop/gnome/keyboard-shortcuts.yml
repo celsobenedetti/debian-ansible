@@ -1,0 +1,32 @@
+---
+- name: Setup keyboard shortcuts
+  shell: |
+    gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[ \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launcher/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/chrome/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/settings/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', \
+      '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/' ]"
+  tags: gnome
+
+- name: Terminal (Super+Return)
+  shell: |
+      gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal/ name 'Alacritty'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal/ command 'alacritty'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal/ binding '<Super>Return'
+  tags: gnome
+
+- name: Launcher (Super+r)
+  shell: |
+      gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launcher/ name 'Launch Launcher (Super+r)'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launcher/ command 'gtk-launch pop-cosmic-launcher.desktop'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/launcher/ binding '<Super>r'
+  tags: gnome
+
+- name: Chrome (Super+c)
+  shell: |
+      gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/chrome/ name 'Chrome'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/chrome/ command 'google-chrome'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/chrome/ binding '<Super>c'
+  tags: gnome

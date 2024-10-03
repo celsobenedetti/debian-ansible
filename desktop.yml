@@ -8,14 +8,22 @@
 
   tasks:
     - name: Include alacritty tasks
-      include_tasks: extras/alacritty.yml
+      include_tasks: desktop/alacritty.yml
       tags: alacritty
 
     - name: Include fonts tasks
-      include_tasks: extras/fonts.yml
+      include_tasks: desktop/fonts.yml
       tags: fonts
 
     - name: Include VSCode tasks
-      include_tasks: extras/vscode.yml
+      include_tasks: desktop/vscode.yml
       tags: vscode
+
+    - name: Include GNOME Keyboard Shortcuts
+      include_tasks: desktop/gnome/keyboard-shortcuts.yml
+      tags: gnome
+
+    - name: Include GNOME Workspaces setup
+      include_tasks: desktop/gnome/workspaces.yml
+      tags: gnome
 
