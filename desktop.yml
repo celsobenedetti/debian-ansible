@@ -26,4 +26,3 @@
     - name: Include GNOME Workspaces setup
       include_tasks: desktop/gnome/workspaces.yml
       tags: gnome
-

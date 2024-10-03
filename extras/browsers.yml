@@ -1,0 +1,60 @@
+---
+- name: Install Browsers
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    ansible_user: "{{ lookup('env', 'USER') }}"
+
+  tasks:
+    - name: Check if Chrome already installed
+      shell: google-chrome
+      register: chrome_check
+      ignore_errors: true
+      tags: chrome
+
+    - name: Check if brave already installed
+      shell: brave-browser
+      register: brave_check
+      ignore_errors: true
+      tags: brave
+
+    - name: Brave requirements
+      apt:
+        name:
+          - curl
+      become: true
+      when: brave_check.rc != 0
+      tags: brave
+
+    - name: Download Brave
+      shell: |
+        sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+        echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+      become: true
+      when: brave_check.rc != 0
+      tags: brave
+
+    - name: Install Brave
+      apt:
+        name:
+          - brave-browser
+        update_cache: true
+      become: true
+      when: brave_check.rc != 0
+      tags: brave
+
+    - name: Download Chrome
+      shell: |
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O ~/Downloads/google-chrome-stable_current_amd64.deb
+      when: chrome_check.rc != 0
+      tags: chrome
+
+    - name: Install chrome
+      shell: |
+        dpkg -i /home/{{ ansible_user }}/Downloads/google-chrome-stable_current_amd64.deb
+      become: true
+      when: chrome_check.rc != 0
+      tags: chrome
+
+
