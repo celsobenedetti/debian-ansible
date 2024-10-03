@@ -23,7 +23,7 @@ For running the `env_secrets.yml` playbook, the ansible-vault password must be s
 # 1. Update system and install basic requirements
 sudo apt update \
  && sudo apt upgrade -y \
- && sudo apt install git curl python3 python3-pip python3.11-venv
+ && sudo apt install git curl python3 python3-pip python3.12-venv
 
 # 2. Clone Ansible s cripts repo
 git clone https://github.com/celsobenedetti/debian-ansible.git ~/local/debian-ansible
