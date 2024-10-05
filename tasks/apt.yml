@@ -12,6 +12,7 @@
       - git
       - wget
       - curl
+      - stow
   become: true
   tags: apt
 

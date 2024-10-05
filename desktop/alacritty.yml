@@ -32,6 +32,7 @@
 - name: Build alacritty
   shell: |
     cd /home/{{ ansible_user }}/local/alacritty
+    export PATH="$HOME/.cargo/bin:$PATH"
     cargo build --release
   tags: alacritty
   when: alacritty_check.rc != 0

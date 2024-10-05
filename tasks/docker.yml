@@ -1,4 +1,11 @@
 ---
+- name: Check if Docker is already installed
+  shell: docker --version
+  register: docker_check
+  changed_when: false
+  ignore_errors: true
+  tags: docker
+
 - name: Uninstall old version
   shell: for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
   become: true
@@ -21,6 +28,7 @@
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
     sudo chmod a+r /etc/apt/keyrings/docker.gpg
   become: true
+  when: docker_check.rc != 0
   tags: docker
 
 - name: Set up repository
@@ -29,6 +37,7 @@
       "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
       $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
       sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  when: docker_check.rc != 0
   become: true
   tags: docker
 
@@ -53,9 +62,9 @@
   become: true
   tags: docker
 
-- name: Add user to docker group
-  shell: |
-    usermod -aG docker "{{ ansible_user }}"
-    newgrp docker
-  become: true
-  tags: docker
+#- name: Add user to docker group
+#  shell: |
+#    usermod -aG docker "{{ ansible_user }}"
+#    newgrp docker
+#  become: true
+#  tags: docker

@@ -5,7 +5,7 @@
 
   vars:
     ansible_user: "{{ lookup('env', 'USER') }}"
-    gh_token: "{{ lookup('env', 'GH_TOKEN') }}"
+    gh_token: "{{ lookup('env', 'GITHUB_TOKEN') }}"
 
   tasks:
     - name: Include apt tasks

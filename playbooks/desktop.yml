@@ -15,9 +15,9 @@
       include_tasks: desktop/fonts.yml
       tags: fonts
 
-    - name: Include VSCode tasks
-      include_tasks: desktop/vscode.yml
-      tags: vscode
+  # - name: Include VSCode tasks
+  #   include_tasks: desktop/vscode.yml
+  #   tags: vscode
 
     - name: Include GNOME Keyboard Shortcuts
       include_tasks: desktop/gnome/keyboard-shortcuts.yml

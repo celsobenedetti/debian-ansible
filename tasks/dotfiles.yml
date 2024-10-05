@@ -14,9 +14,7 @@
   tags: dotfiles
 
 - name: Install GNU Stow
-  apt:
-    name: make link
-    state: present
+  command name: make link
   become: true
   tags: dotfiles
 
