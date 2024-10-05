@@ -1,0 +1,17 @@
+---
+- name: Provision Ubuntu
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+
+    - name: Install Flatpak
+      apt:
+        name:
+          - flatpak
+        update_cache: true
+      become: true
+
+    - name: Add Flatpak repository
+      shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
