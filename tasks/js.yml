@@ -8,3 +8,12 @@
 - name: Install pnpm
   shell: curl -fsSL https://get.pnpm.io/install.sh | sh -
   tags: js
+
+- name: Install deno
+  shell: curl -fsSL https://deno.land/install.sh | sh
+  tags: js
+
+- name: Install pnpm packages
+  shell: |
+    pnpm install -g @nestjs/cli
+  tags: js
