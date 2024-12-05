@@ -1,0 +1,47 @@
+---
+- name: Install VSCode
+  hosts: localhost
+  gather_facts: false
+
+  tasks: 
+    - name: Check if Visual Studio Code is installed
+      command: dpkg -s code
+      register: vscode_status
+      failed_when: false
+      changed_when: false
+      tags: vscode
+
+    - name: Install wget and gpg
+      apt:
+        name:
+          - wget
+          - gpg
+      become: true
+      when: vscode_status.rc != 0
+      tags: vscode
+
+    - name: Add Microsoft GPG key and Visual Studio Code repository
+      shell: |
+        wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+        install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+        sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+        rm -f packages.microsoft.gpg
+      when: vscode_status.rc != 0
+      become: true
+      tags: vscode
+
+    - name: Update apt cache
+      apt:
+        name: apt-transport-https
+        update_cache: yes
+      become: true
+      when: vscode_status.rc != 0
+      tags: vscode
+
+    - name: Install Visual Studio Code
+      apt:
+        name: code
+        state: latest
+      become: true
+      when: vscode_status.rc != 0
+      tags: vscode
