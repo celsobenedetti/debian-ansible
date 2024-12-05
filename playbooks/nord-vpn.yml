@@ -1,0 +1,9 @@
+---
+- name: Install Nord VPM
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Install nord vpn
+      shell: curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh
+      become: true
