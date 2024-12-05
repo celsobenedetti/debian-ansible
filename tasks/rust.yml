@@ -27,4 +27,5 @@
     cargo install git-delta
     cargo install exa
     cargo install fnm
+    cargo install tealdeer
   tags: rust
